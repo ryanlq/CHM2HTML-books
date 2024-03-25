@@ -1,0 +1,41 @@
+p a:first{
+    font-size: large;
+}
+
+p {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+p a {
+    flex: 1 0 calc(50% - 10px); /* 每个item占据一半宽度，减去边距 */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid black; /* 可视化效果 */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+    gap: 10px; /* 在按钮间添加间距 */
+    margin-top: 20px; /* 在页面尾端增加顶部间距 */
+    padding: 10px; /* 给按钮组添加内边距 */
+    background-color: #f1f1f1; /* 设置背景色，例如浅灰色 */
+    border-radius: 5px; /* 添加圆角效果 */
+}
+
+.button-group a {
+    text-decoration: none; /* 去除下划线 */
+    color: #333; /* 文字颜色 */
+    font-size: 16px; /* 字体大小 */
+    padding: 8px 16px; /* 内边距使按钮有点击区域 */
+    border: 1px solid #ccc; /* 边框 */
+    border-radius: 5px; /* 圆角与按钮组保持一致 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+
+    &:hover {
+        background-color: #e0e0e0; /* 鼠标悬停时的背景色 */
+        color: #000; /* 鼠标悬停时的文字颜色 */
+    }
+}
