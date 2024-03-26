@@ -6,6 +6,9 @@ function noscale(){
     document.head.appendChild(meta)
 }
 
+function chang_font_size(){
+
+}
 
 // 增加暗黑模式切换 eink/normal
 function darkmode() {
@@ -108,7 +111,8 @@ function create_menus(){
     });
 }
 
-
-noscale()
-create_menus()
+window.onload = function(){
+    noscale()
+    create_menus()
+}
 
