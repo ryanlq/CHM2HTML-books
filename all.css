@@ -38,9 +38,9 @@ p a {
     align-items: center; /* 垂直居中对齐 */
     gap: 10px; /* 在按钮间添加间距 */
     margin-top: 20px; /* 在页面尾端增加顶部间距 */
-    padding: 10px; /* 给按钮组添加内边距 */
-    background-color: #000000; /* 设置背景色，例如浅灰色 */
-    border-radius: 5px; /* 添加圆角效果 */
+    padding: 8px; /* 给按钮组添加内边距 */
+    background-color: #fff;
+    border-radius: 5px;
     font-size: small;
 }
 
