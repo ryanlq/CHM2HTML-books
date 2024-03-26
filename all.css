@@ -54,3 +54,58 @@ p a {
     color: #000; /* 鼠标悬停时的文字颜色 */
 }
 
+.switch-container {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-label {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 17px;
+    transition: background-color 0.3s;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        bottom: 2px;
+        width: 28px;
+        background-color: #fff;
+        border-radius: 15px;
+        transition: transform 0.3s;
+    }
+
+    &:hover, 
+    &:active {
+        background-color: #ddd;
+    }
+}
+
+.switch-input:checked + .switch-label {
+    background-color: #4caf50;
+
+    &::before {
+        transform: translateX(28px);
+    }
+}
+
+.switch-inner {
+    /* 这部分是装饰性的，根据需求可自定义或删除 */
+    display: none;
+}
