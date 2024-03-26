@@ -64,24 +64,38 @@ function darkmode() {
     DarkNode = document.createElement("style")
     DarkNode.textContent = darkstylestr
     document.body.appendChild(DarkNode)
+    document.body.classList.add("dark")
 }
 
 function sunmode(){
     if(DarkNode){
         DarkNode.remove()
     }
+    
+    document.body.classList.remove("dark")
 }
 
 
 function create_menus(){
     const wrapper = document.createElement("div")
+    wrapper.style=`
+        position:fixed;
+        right:5px;
+        top:5px;
+    `
     wrapper.classList.add('switch-container')
-    wrapper.innerHTML = `    <input type="checkbox" id="modernSwitch" class="switch-input" />
-    <label for="modernSwitch" class="switch-label">
-        <span class="switch-inner">OFF</span>
-        <span class="switch-inner switch-active">ON</span>
+    wrapper.innerHTML = `<input type="checkbox" id="mySwitch" class="switch-input" />
+    <label for="mySwitch" class="switch-label"><span class="switch-inner"></span>
     </label>`
     document.body.appendChild(wrapper)
+
+    document.getElementById('mySwitch').addEventListener('change', function() {
+        if(document.body.classList.contains("dark")){
+            sunmode()
+        } else {
+            darkmode()
+        }
+    });
 }
 
 create_menus()
