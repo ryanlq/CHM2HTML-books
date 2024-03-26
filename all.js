@@ -1,3 +1,13 @@
+//禁止缩放
+function noscale(){
+    const meta = document.createElement("meta") 
+    meta.name = "viewport" 
+    meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" 
+    document.head.appendChild(meta)
+}
+
+
+// 增加暗黑模式切换 eink/normal
 function darkmode() {
     darkstylestr = `
     body,p{
@@ -98,4 +108,7 @@ function create_menus(){
     });
 }
 
+
+noscale()
 create_menus()
+
