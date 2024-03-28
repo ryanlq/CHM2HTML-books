@@ -1,3 +1,10 @@
+config = {
+    hosts:window.location.host
+}
+
+common_div = document.createElement("div")
+
+
 //禁止缩放
 function noscale(){
     const meta = document.createElement("meta") 
@@ -128,6 +135,11 @@ function backfix(){
 
 //fetch 书名
 
+function newtextnode (text){
+  const  d =  common_div.cloneNode()
+  d.textContent = text
+  return d
+}
 function get_booknames(){
     const url = "https://cdn.jsdelivr.net/gh/ryanlq/CHM2HTML-books@main/books.json"
     fetch(url)
@@ -138,12 +150,25 @@ function get_booknames(){
         return response.json();
     })
     .then(data => {
-        console.log('Loaded data:', data);
         if(check_bookindex()){
             let links = document.querySelectorAll("p a")
             links.forEach(link=>{
-                const n = data[link.href.split("/")[0]]
-                if(n) link.appendChild(n)
+                let href = link.href.replace(config.host,"")
+                //本地file// test
+                
+                if(!config.host){ //test
+                    console.log(config.host);
+                    href = link.href.replace("file:///E:/txt%E4%B9%A6%E7%B1%8D/chm/test","")
+                } 
+                
+                console.log(href);
+                href[0] == "/" && (href = href.slice(1))
+                let n = data[href.split("/")[0]]
+                console.log(href, n);
+                if(n) {
+                    link.appendChild(newtextnode(n))
+                    
+                }
             })
         }
 
