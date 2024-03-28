@@ -111,8 +111,20 @@ function create_menus(){
     });
 }
 
+//调整index.html 目录 返回指向
+function backfix(){
+    if(window.location.href.includes("index.html")){
+        let links = document.querySelector(".button-group").querySelectorAll('a')
+        links.forEach(link=>{
+            link.href.includes("bbb.html") && link.href.replace("bbb.html","index.html")
+        })
+
+    }
+}
+
 window.onload = function(){
     noscale()
     create_menus()
+    backfix()
 }
 
