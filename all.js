@@ -112,8 +112,12 @@ function create_menus(){
 }
 
 //调整index.html 目录 返回指向
+function check_bookindex(){
+    return window.location.href.includes("index.html")
+}
+
 function backfix(){
-    if(window.location.href.includes("index.html")){
+    if(check_bookindex()){
         let links = document.querySelector(".button-group").querySelectorAll('a')
         links.forEach(link=>{
             link.href.includes("bbb.html") && link.href.replace("bbb.html","index.html")
@@ -122,9 +126,40 @@ function backfix(){
     }
 }
 
+//fetch 书名
+
+function get_booknames(){
+    const url = "https://cdn.jsdelivr.net/gh/ryanlq/CHM2HTML-books@main/books.json"
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Loaded data:', data);
+        if(check_bookindex()){
+            let links = document.querySelectorAll("p a")
+            links.forEach(link=>{
+                const n = data[link.href.split("/")[0]]
+                if(n) link.appendChild(n)
+            })
+        }
+
+    })
+    .catch(error => {
+        console.error('Error fetching and parsing data', error);
+    });
+}
+
+
 window.onload = function(){
     noscale()
     create_menus()
-    backfix()
+    if(check_bookindex){
+        backfix()
+        get_booknames()
+    }
 }
 
