@@ -127,7 +127,7 @@ function backfix(){
     if(check_bookindex()){
         let links = document.querySelector(".button-group").querySelectorAll('a')
         links.forEach(link=>{
-            link.href.includes("bbb.html") && link.href.replace("bbb.html","index.html")
+            link.href.includes("bbb.html") && (link.href = link.href.replace("bbb.html","index.html"))
         })
 
     }
