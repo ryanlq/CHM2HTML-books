@@ -182,7 +182,7 @@ function get_booknames(){
 window.onload = function(){
     noscale()
     create_menus()
-    if(check_bookindex){
+    if(check_bookindex()){
         backfix()
         get_booknames()
     }
