@@ -32,20 +32,20 @@ function darkmode() {
         line-height: 1.8;
         letter-spacing: 1.3;
         text-align: start;
+        justify-content: space-between;
     }
     p a:first-child{
         font-size: xx-large;
         flex: 1 0 calc(100%); 
-        color: rgb(0, 0, 0);
+        /* color: rgb(0, 0, 0); */
         background-color: #645b5b;
         text-decoration: none;
     }
     
     p a {
-        flex: 1 0 calc(50% - 10px); 
         box-sizing: border-box;
-        padding: 10px;
-        border: 1px solid rgb(66, 74, 70); 
+        padding: 3px;
+        border: 1px solid rgb(233, 234, 234); 
         font-size: x-large;
         text-align: center;
         overflow: hidden;
@@ -59,9 +59,10 @@ function darkmode() {
         align-items: center;
         gap: 10px; 
         margin-top: 20px; 
-        padding: 10px; 
+        padding: 8px; 
         background-color: #072202;
-        border-radius: 5px; 
+        border-radius: 5px;
+        font-size: small;
     }
     
     .button-group a {
@@ -73,13 +74,61 @@ function darkmode() {
         transition: all 0.3s ease; 
         background-color: #0f4c04;
         color: #f1f1f1; 
-        &:hover {
-            background-color: #4c3904; 
-           
-            font-weight: bolder;
-            box-shadow:0px 0px 0px 4px #f2d056 inset;       
-            }
+    }
+    .switch-container {
+        display: inline-block;
+        position: relative;
+        width: 2.5em;
+        height: 1em;
+    }
+    
+    .switch-input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .switch-label {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        border-radius: 0.5em;
+        transition: background-color 0.3s;
+    
+        &::before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            bottom: 2px;
+            width: 28px;
+            background-color: #000;
+            border-radius: 15px;
+            transition: transform 0.3s;
         }
+    
+        &:hover, 
+        &:active {
+            background-color: #000;
+        }
+    }
+    
+    .switch-input:checked + .switch-label {
+        background-color: #fff;
+    
+        &::before {
+            transform: translateX(28px);
+        }
+    }
+    
+    .switch-inner {
+        display: none;
+    }
     `
     DarkNode = document.createElement("style")
     DarkNode.textContent = darkstylestr
