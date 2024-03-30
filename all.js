@@ -213,7 +213,7 @@ function fix_bookindexpage(){
     }
 }
 
-// window.onload = function(){
+window.onload = function(){
     noscale()
     create_menus()
     if(check_bookindex()){
@@ -221,5 +221,5 @@ function fix_bookindexpage(){
         get_booknames()
         fix_bookindexpage()
     }
-// }
+}
 
