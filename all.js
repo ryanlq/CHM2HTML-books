@@ -135,13 +135,28 @@ function backfix(){
 
 //fetch 书名
 
-function newtextnode (text){
+function newtextnode (text,styles=""){
   const  d =  common_div.cloneNode()
+  d.style = styles;
   d.textContent = text
   return d
 }
+
+const booknamestyle = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffffc9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+
 function get_booknames(){
-    const url = "https://cdn.jsdelivr.net/gh/ryanlq/CHM2HTML-books@main/books.json"
+    const url = "https://ryanlq.github.io/resources/books.json"
     fetch(url)
     .then(response => {
         if (!response.ok) {
@@ -152,24 +167,32 @@ function get_booknames(){
     .then(data => {
         if(check_bookindex()){
             let links = document.querySelectorAll("p a")
-            links.forEach(link=>{
-                let href = link.href.replace(config.host,"")
+            links.forEach((link,i)=>{
+                i == 0 && (links[i].style.flex = "none")
+                const img = link.querySelector("img")
+                img.setAttribute("width","230")
+                link.style.textDecoration = "none"
+                link.style.width = "230px"
+                let href = link.href.replace(window.location.origin,"")
                 //本地file// test
                 
-                if(!config.host){ //test
-                    console.log(config.host);
-                    href = link.href.replace("file:///E:/txt%E4%B9%A6%E7%B1%8D/chm/test","")
+                if(window.location.protocol  == "file:" ){ //test
+                    href = link.href.replace("file:///","")
                 } 
                 
-                console.log(href);
-                href[0] == "/" && (href = href.slice(1))
-                let n = data[href.split("/")[0]]
-                console.log(href, n);
+                // href[0] == "/" && (href = href.slice(1))
+                const bn =  href.replace(/https?:\/\//,'')
+                        .replace(window.location.host,"")
+                        .replace("/index.html","")
+                        .split("/")
+                let n = data[bn[bn.length-1]]
                 if(n) {
-                    link.appendChild(newtextnode(n))
-                    
+                    link.style.position = "relative"
+                    link.style.display = "inline-block";
+                    link.appendChild(newtextnode(n,booknamestyle))
                 }
             })
+            fix_bookindexpage()
         }
 
     })
@@ -178,13 +201,25 @@ function get_booknames(){
     });
 }
 
+function fix_bookindexpage(){
+    const cn = document.querySelector("a[href='aaa.html']")
+    if(cn){
+        cn.innerHTML = "返回"
+        cn.href = window.location.origin + "/index.html"
+        const p = document.querySelector("p")
+        p.style.gap = "1rem"
+        p.style.margin = "-0.5%;"
+        if(window.innerWidth <900) p.style.justifyContent = "space-evenly"
+    }
+}
 
-window.onload = function(){
+// window.onload = function(){
     noscale()
     create_menus()
     if(check_bookindex()){
         backfix()
         get_booknames()
+        fix_bookindexpage()
     }
-}
+// }
 
