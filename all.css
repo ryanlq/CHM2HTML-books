@@ -15,7 +15,7 @@ p {
 p a:first-child{
     font-size: xx-large;
     flex: 1 0 calc(100%); /* 每个item占据一半宽度，减去边距 */
-    color: rgb(0, 0, 0);
+    /* color: rgb(0, 0, 0); */
     background-color: #ffffff;
     /*去掉下划线*/
     text-decoration: none;
