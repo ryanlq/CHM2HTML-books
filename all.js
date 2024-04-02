@@ -169,7 +169,7 @@ function create_menus(){
 
 //调整index.html 目录 返回指向
 function check_bookindex(){
-    return window.location.href.includes("index.html")
+    return Boolean(window.location.href.replace(window.location.origin,"").match(/\/\d+\/index.html/))
 }
 
 function backfix(){
