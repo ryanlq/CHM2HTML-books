@@ -1,7 +1,3 @@
-config = {
-    hosts:window.location.host
-}
-
 common_div = document.createElement("div")
 
 
