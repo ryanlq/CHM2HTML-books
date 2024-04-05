@@ -168,18 +168,22 @@ function create_menus(){
 }
 
 //调整index.html 目录 返回指向
-function check_bookindex(){
+function check_booksindex(){
     return Boolean(window.location.href.replace(window.location.origin,"").match(/\/\d+\/index.html/))
 }
-
+function check_book_index(){
+    return Boolean(window.location.href.replace(window.location.origin,"").match(/\/\d+\/.+\/index.html/))
+}
 function backfix(){
-    if(check_bookindex()){
         let links = document.querySelector(".button-group").querySelectorAll('a')
         links.forEach(link=>{
             link.href.includes("bbb.html") && (link.href = link.href.replace("bbb.html","index.html"))
         })
+}
 
-    }
+function add_save_btn(){
+    let link = document.querySelector(".button-group").querySelector('a')
+    link.before(savebtn())
 }
 
 //fetch 书名
@@ -214,7 +218,7 @@ function get_booknames(){
         return response.json();
     })
     .then(data => {
-        if(check_bookindex()){
+        if(check_books_index()){
             let links = document.querySelectorAll("p a")
             links.forEach((link,i)=>{
                 i == 0 && (links[i].style.flex = "none")
@@ -311,7 +315,6 @@ function fix_bookindexpage(){
 
 
         
-        cn.before(savebtn()) //txt下载按钮
 
         cn.innerHTML = "返回"
         cn.href = window.location.origin + "/index.html"
@@ -332,12 +335,16 @@ function booksummary(){
 window.onload = function(){
     noscale()
     create_menus()
-    if(check_bookindex()){
+    if(check_books_index()){ //书架页
         backfix()
         get_booknames()
         fix_bookindexpage()
     }
-    if(window.top != window){
+    if(check_book_index()){ //目录页
+        backfix()
+        add_save_btn()
+    }
+    if(window.top != window){ //iframe
         const p = document.querySelector("p");
         p.style = `
             position: fixed;
