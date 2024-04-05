@@ -24,7 +24,7 @@ p a:first-child{
 p a {
     box-sizing: border-box;
     padding: 3px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 3px solid rgb(0, 0, 0);
     font-size: x-large;
     text-align: center;
     overflow: hidden;

@@ -45,7 +45,7 @@ function darkmode() {
     p a {
         box-sizing: border-box;
         padding: 3px;
-        border: 1px solid rgb(233, 234, 234); 
+        border: 3px solid rgb(233, 234, 234); 
         font-size: x-large;
         text-align: center;
         overflow: hidden;
@@ -197,7 +197,7 @@ const booknamestyle = `
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffffc9;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
