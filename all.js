@@ -307,8 +307,10 @@ function savebtn(){
 
 function fix_bookindexpage(){
     const cn = document.querySelector("a[href='aaa.html']")
-    if(cn){
+    if(cn){ //目录页
 
+
+        
         cn.before(savebtn()) //txt下载按钮
 
         cn.innerHTML = "返回"
@@ -320,6 +322,13 @@ function fix_bookindexpage(){
     }
 }
 
+function booksummary(){
+        const a1 = document.querySelector("a") 
+        if('内容简介' == a1.textContent.replaceAll('\n','')){
+            a1.innerHTML = "<iframe src='"+ a1.href +"' style='width:100%;height:100%;'></iframe>"
+        }
+}
+
 window.onload = function(){
     noscale()
     create_menus()
@@ -328,5 +337,19 @@ window.onload = function(){
         get_booknames()
         fix_bookindexpage()
     }
+    if(window.top != window){
+        const p = document.querySelector("p");
+        p.style = `
+            position: fixed;
+            background-color: #fff;
+            width: auto;
+            height: 100%;
+            z-index: 99;
+            top: 0;
+            left: 0;
+            font-size: small;
+        `
+    } 
+
 }
 
