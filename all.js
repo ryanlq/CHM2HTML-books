@@ -249,19 +249,13 @@ function get_booknames(){
         console.error('Error fetching and parsing data', error);
     });
 }
-function downloadFile(contents) {
-    // 创建一个链接元素
+function downloadFile(contents,bookname) {
     var link = document.createElement('a');
-    link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents)); // 在这里替换为您要下载的文件内容
-    link.setAttribute('download', 'xxx.txt'); // 设置文件名为 "xxx.txt"
-
-    // 将链接添加到页面上
+    link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents)); 
+    link.setAttribute('download', bookname +'.txt'); // 设置文件名
     document.body.appendChild(link);
 
-    // 模拟点击链接，触发下载
     link.click();
-
-    // 清理
     document.body.removeChild(link);
 }
 function save_to_txt(){
@@ -283,7 +277,17 @@ function save_to_txt(){
                 let chapter = "\n 第" + (i+1) + "章 \n"
                 txtcontents = txtcontents + (chapter + data.replaceAll(/<.*>/g,""))
             })
-            downloadFile(txtcontents)
+            const paths = window.location.href.replace(window.location.origin+'/','').replace('/index.html','').split('/')
+            if(paths.length ==  2){
+                fetch("https://ryanlq.github.io/resources/books.json")
+                .then(response => response.json())
+                .then(result=>{
+                        const bookname = result[path[1]]
+                        if(bookname)  downloadFile(txtcontents,bookname)
+                })
+            } else{
+                downloadFile(txtcontents,paths.join('-'))
+            }
     
         })
         .catch(function(error) {
@@ -304,7 +308,7 @@ function savebtn(){
 function fix_bookindexpage(){
     const cn = document.querySelector("a[href='aaa.html']")
     if(cn){
-        
+
         cn.before(savebtn()) //txt下载按钮
 
         cn.innerHTML = "返回"
