@@ -264,7 +264,7 @@ function downloadFile(contents) {
     // 清理
     document.body.removeChild(link);
 }
-function fetch_all_contents(){
+function save_to_txt(){
     const links = document.querySelectorAll("p a")
     let txtcontents = ''
     var fetchPromises = [] ;
@@ -291,20 +291,22 @@ function fetch_all_contents(){
         });
 
 }
-function save_to_txt(){
-    const link = document.createElement("a")
-    link.href = "#"
-    link.textContent = "保存为txt"
-    link.addEventListener("click",e=>{
-        fetch_all_contents()
+function savebtn(){
+    const linkbtn = document.createElement("a")
+    linkbtn.href = "#"
+    linkbtn.textContent = "保存为txt"
+    linkbtn.addEventListener("click",e=>{
+        save_to_txt()
     })
+    return linkbtn
 }
 
 function fix_bookindexpage(){
     const cn = document.querySelector("a[href='aaa.html']")
     if(cn){
         
-        cn.before()
+        cn.before(savebtn()) //txt下载按钮
+
         cn.innerHTML = "返回"
         cn.href = window.location.origin + "/index.html"
         const p = document.querySelector("p")
