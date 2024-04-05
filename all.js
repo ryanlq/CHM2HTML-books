@@ -249,10 +249,62 @@ function get_booknames(){
         console.error('Error fetching and parsing data', error);
     });
 }
+function downloadFile(contents) {
+    // 创建一个链接元素
+    var link = document.createElement('a');
+    link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contents)); // 在这里替换为您要下载的文件内容
+    link.setAttribute('download', 'xxx.txt'); // 设置文件名为 "xxx.txt"
+
+    // 将链接添加到页面上
+    document.body.appendChild(link);
+
+    // 模拟点击链接，触发下载
+    link.click();
+
+    // 清理
+    document.body.removeChild(link);
+}
+function fetch_all_contents(){
+    const links = document.querySelectorAll("p a")
+    let txtcontents = ''
+    var fetchPromises = [] ;
+    links.forEach(link=>{
+        fetchPromises.push(fetch(link.href))
+    })
+    
+    Promise.all(fetchPromises)
+        .then(function(responses) {
+            return Promise.all(responses.map(function(response) {
+                return response.text();
+            }));
+        })
+        .then(function(dataArray) {
+            dataArray.forEach((data,i)=>{
+                let chapter = "\n 第" + (i+1) + "章 \n"
+                txtcontents = txtcontents + (chapter + data.replaceAll(/<.*>/g,""))
+            })
+            downloadFile(txtcontents)
+    
+        })
+        .catch(function(error) {
+            console.error('Error fetching data:', error);
+        });
+
+}
+function save_to_txt(){
+    const link = document.createElement("a")
+    link.href = "#"
+    link.textContent = "保存为txt"
+    link.addEventListener("click",e=>{
+        fetch_all_contents()
+    })
+}
 
 function fix_bookindexpage(){
     const cn = document.querySelector("a[href='aaa.html']")
     if(cn){
+        
+        cn.before()
         cn.innerHTML = "返回"
         cn.href = window.location.origin + "/index.html"
         const p = document.querySelector("p")
