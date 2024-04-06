@@ -164,7 +164,7 @@ function create_menus(){
 }
 
 //调整index.html 目录 返回指向
-function check_booksindex(){
+function check_books_index(){
     return Boolean(window.location.href.replace(window.location.origin,"").match(/\/\d+\/index.html/))
 }
 function check_book_index(){
