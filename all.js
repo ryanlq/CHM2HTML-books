@@ -282,7 +282,7 @@ function save_to_txt(){
                 fetch("https://ryanlq.github.io/resources/books.json")
                 .then(response => response.json())
                 .then(result=>{
-                        const bookname = result[path[1]]
+                        const bookname = result[paths[1]]
                         if(bookname)  downloadFile(txtcontents,bookname)
                 })
             } else{
