@@ -277,7 +277,7 @@ function save_to_txt(){
                 let chapter = "\n 第" + (i+1) + "章 \n"
                 txtcontents = txtcontents + (chapter + data.replaceAll(/<.*>/g,""))
             })
-            const paths = window.location.href.replace(window.location.origin+'/','').replace('/index.html','').split('/')
+            const paths = window.location.href.replace(window.location.origin+'/','').replace('/index.html','').replace('#','').split('/')
             if(paths.length ==  2){
                 fetch("https://ryanlq.github.io/resources/books.json")
                 .then(response => response.json())
